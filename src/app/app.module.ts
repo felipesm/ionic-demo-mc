@@ -1,3 +1,4 @@
+import { AuthInterceptorProvider } from './../interceptors/auth-interceptors';
 import { ClienteService } from './../services/domain/cliente.service';
 import { StorageService } from './../services/storageservice';
 import { AuthService } from './../services/authservice';
@@ -31,6 +32,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CategoriaService,
+    AuthInterceptorProvider,
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
