@@ -10,10 +10,12 @@
       <ion-label stacked>Nome*</ion-label>
       <ion-input formControlName="nome" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.nome.dirty && formGroup.controls.nome.errors" margin-left>Nome inválido. O campo nome precisa ter entre 2 e 130 caracteres.</p>
     <ion-item>
       <ion-label stacked>Email*</ion-label>
       <ion-input formControlName="email" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>O campo e-mail é obrigatório.</p>
     <ion-list radio-group formControlName="tipo">
       <ion-list-header>
         Tipo de Cliente*
@@ -27,47 +29,56 @@
         <ion-radio value="2"></ion-radio>
       </ion-item>
     </ion-list>
-
+    
     <ion-item>
       <ion-label stacked>CPF/CNPJ*</ion-label>
       <ion-input formControlName="cpfCnpj" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.cpfCnpj.dirty && formGroup.controls.cpfCnpj.errors" margin-left>CPF ou CNPJ inválido.</p>
     <ion-item>
       <ion-label stacked>Senha*</ion-label>
       <ion-input formControlName="senha" type="password"></ion-input>
     </ion-item> 
+    <p class="danger" *ngIf="formGroup.controls.senha.dirty && formGroup.controls.senha.errors" margin-left>O campo senha é obrigatório.</p>
     <ion-item>
       <ion-label stacked>Logradouro</ion-label>
       <ion-input formControlName="logradouro" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.logradouro.dirty && formGroup.controls.logradouro.errors" margin-left>O campo Logradouro precisa ter no mínimo 6 caracteres.</p>
     <ion-item>
       <ion-label stacked>Número</ion-label>
       <ion-input formControlName="numero" type="text"></ion-input>
-    </ion-item>
+    </ion-item>    
     <ion-item>
       <ion-label stacked>Complemento</ion-label>
       <ion-input formControlName="complemento" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.complemento.dirty && formGroup.controls.complemento.errors" margin-left>O campo Complemento precisa ter no mínimo 2 caracteres.</p>
     <ion-item>
       <ion-label stacked>Bairro</ion-label>
       <ion-input formControlName="bairro" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.bairro.dirty && formGroup.controls.bairro.errors" margin-left>O campo Logradouro precisa ter no mínimo 2 caracteres.</p>
     <ion-item>
       <ion-label stacked>CEP*</ion-label>
       <ion-input formControlName="cep" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.cep.dirty && formGroup.controls.cep.errors" margin-left>O campo CEP precisa ter 8 dígitos.</p>
     <ion-item>
       <ion-label stacked>Celular*</ion-label>
       <ion-input formControlName="celular" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.celular.dirty && formGroup.controls.celular.errors" margin-left>O campo Celular precisa ter no mínimo 11 dígitos.</p>
     <ion-item>
       <ion-label stacked>Telefone Fixo</ion-label>
       <ion-input formControlName="telefonefixo" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.telefonefixo.dirty && formGroup.controls.telefonefixo.errors" margin-left>O campo Telefone fixo precisa ter no mínimo 10 dígitos.</p>
     <ion-item>
       <ion-label stacked>Telefone Residencial</ion-label>
       <ion-input formControlName="telefoneresidencial" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.telefoneresidencial.dirty && formGroup.controls.telefoneresidencial.errors" margin-left>O campo Telefone fixo precisa ter no mínimo 10 dígitos.</p>
     <ion-item>
       <ion-label stacked>Estado*</ion-label>
       <ion-select formControlName="estadoId" (ionChange)="atualizarCidades()">
@@ -84,6 +95,6 @@
         </ion-option>
       </ion-select>
     </ion-item>
-    <button ion-button block type="submit">Criar Conta</button>
+    <button ion-button block type="submit" [disabled]="formGroup.invalid">Criar Conta</button>
   </form>
 </ion-content>
