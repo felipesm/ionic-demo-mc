@@ -1,3 +1,4 @@
+import { FieldMessage } from './../models/fieldMessage';
 import { StorageService } from './../services/storageservice';
 
 import { HttpInterceptor, HttpEvent, HttpRequest, HttpHandler, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -35,6 +36,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                         break;
                     case 404:
                         this.handle404();
+                        break;
+                    case 422:
+                        this.handle422(errorObj);
                         break;
                     default:
                         this.handleDefaultError(errorObj);
@@ -77,6 +81,21 @@ export class ErrorInterceptor implements HttpInterceptor {
         alertControl.present();
     }
 
+    handle422(errorObj) {
+        let alertControl = this.alert.create({
+            title: 'Erro de validação',
+            message: this.listagemDeErros(errorObj.listaDeErros),
+            enableBackdropDismiss: false,
+            buttons: [
+                {
+                    text: 'OK'
+                }
+            ]
+        });
+
+        alertControl.present();
+    }
+
     handleDefaultError(errorObj) {
         let alertControl = this.alert.create({
             title: 'Erro ' + errorObj.status + ': ' + errorObj.error,
@@ -89,6 +108,28 @@ export class ErrorInterceptor implements HttpInterceptor {
         });
 
         alertControl.present();
+    }
+
+    private listagemDeErros(messages : FieldMessage[]) : string {
+        let s : string = '';
+        for (var i = 0; i < messages.length; i++) {
+            // s = s + '<p><strong>' + messages[i].nomeCampo + '</strong>: ' + messages[i].mensagem + '</p>';
+            s = s + '<p><strong>' + this.retornarNomeCampo(messages[i].nomeCampo) + '</strong>: ' + messages[i].mensagem + '</p>';
+        }
+        return s;
+    }
+
+    retornarNomeCampo(campo : string) : string {
+        switch(campo) {
+            case "numeroInscricao":
+                return "CPF/CNPJ";
+            break;
+            case "telefoneCelular":
+                return "Celular";
+            break;
+        }
+
+        return "";
     }
 
 };
