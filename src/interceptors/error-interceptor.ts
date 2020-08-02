@@ -113,7 +113,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     private listagemDeErros(messages : FieldMessage[]) : string {
         let s : string = '';
         for (var i = 0; i < messages.length; i++) {
-            // s = s + '<p><strong>' + messages[i].nomeCampo + '</strong>: ' + messages[i].mensagem + '</p>';
             s = s + '<p><strong>' + this.retornarNomeCampo(messages[i].nomeCampo) + '</strong>: ' + messages[i].mensagem + '</p>';
         }
         return s;
@@ -123,10 +122,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         switch(campo) {
             case "numeroInscricao":
                 return "CPF/CNPJ";
-            break;
             case "telefoneCelular":
                 return "Celular";
-            break;
         }
 
         return "";
