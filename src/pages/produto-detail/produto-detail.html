@@ -9,7 +9,6 @@
 
 <ion-content padding>
   <ion-card class="card">
-    <!-- <img [src]="item?.imageUrl || 'assets/imgs/no-photo.png'"> -->
     <img class="img" src="./../../assets/imgs/produtos/{{item?.id}}.png">
     <ion-card-content>
       <ion-card-title>
@@ -21,6 +20,6 @@
     </ion-card-content>
   </ion-card>
 
-  <button ion-button block outline>Adicionar ao Carrinho</button>
+  <button ion-button block outline (click)="adicionarProduto(item)">Adicionar ao Carrinho</button>
 </ion-content>
 

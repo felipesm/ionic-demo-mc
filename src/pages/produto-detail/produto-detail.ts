@@ -1,3 +1,4 @@
+import { CarrinhoService } from './../../services/domain/carrinho.service';
 import { ProdutoService } from './../../services/domain/produto.service';
 import { ProdutoDTO } from './../../models/produtoDTO';
 import { Component } from '@angular/core';
@@ -10,12 +11,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProdutoDetailPage {
 
-  item : any;
-
+  // ProdutoDTO
+  item: ProdutoDTO;
+ 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public produtoService: ProdutoService) {
+    public produtoService: ProdutoService,
+    public carrinhoService: CarrinhoService) {
   }
 
   ionViewDidLoad() {
@@ -27,6 +30,11 @@ export class ProdutoDetailPage {
       },
       error => {}
     );
+  }
+
+  adicionarProduto(produto: ProdutoDTO) {
+    this.carrinhoService.adicionarProdutoNoCarrinho(produto);
+    this.navCtrl.setRoot('CarrinhoPage');
   }
 
 }

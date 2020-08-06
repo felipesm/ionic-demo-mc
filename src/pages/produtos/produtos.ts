@@ -29,7 +29,7 @@ export class ProdutosPage {
     );
   }
 
-  mostrarDetalhesProduto(idProduto: string) {
+  mostrarDetalhesProduto(idProduto : string) {
     this.navCtrl.push('ProdutoDetailPage', {idProduto: idProduto});
   }
 }

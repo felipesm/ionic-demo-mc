@@ -10,7 +10,7 @@ export class ProdutoService {
     }
     
     pesquisarProduto(idProduto: string) {
-        return this.http.get(`${API_CONFIG.baseUrl}/produtos/${idProduto}`);
+        return this.http.get<ProdutoDTO>(`${API_CONFIG.baseUrl}/produtos/${idProduto}`);
     }
 
     listarPorCategoria(idCategoria: string) {
