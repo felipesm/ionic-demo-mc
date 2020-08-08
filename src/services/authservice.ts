@@ -1,3 +1,4 @@
+import { CarrinhoService } from './domain/carrinho.service';
 import { JwtHelper } from 'angular2-jwt';
 import { StorageService } from './storageservice';
 import { LocalUser } from './../models/localuser';
@@ -11,7 +12,7 @@ export class AuthService {
 
     jwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(public http: HttpClient, public storage: StorageService) {
+    constructor(public http: HttpClient, public storage: StorageService, public carrinhoService: CarrinhoService) {
 
     }
 
@@ -39,6 +40,7 @@ export class AuthService {
         };
 
         this.storage.setLocalUser(user);
+        this.carrinhoService.criarOuLimparCarrinho();
     }
 
     logout() {

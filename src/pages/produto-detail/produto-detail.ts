@@ -11,7 +11,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProdutoDetailPage {
 
-  // ProdutoDTO
   item: ProdutoDTO;
  
   constructor(
