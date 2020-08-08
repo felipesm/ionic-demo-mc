@@ -1,20 +1,22 @@
-import { ClienteService } from './../../services/domain/cliente.service';
 import { StorageService } from './../../services/storageservice';
+import { LocalUser } from './../../models/localuser';
+import { ClienteService } from './../../services/domain/cliente.service';
+import { EnderecoDTO } from './../../models/enderecoDTO';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ClienteDTO } from '../../models/clienteDTO';
 
 @IonicPage()
 @Component({
-  selector: 'page-profile',
-  templateUrl: 'profile.html',
+  selector: 'page-endereco-pedido',
+  templateUrl: 'endereco-pedido.html',
 })
-export class ProfilePage {
+export class EnderecoPedidoPage {
 
-  cliente: ClienteDTO;
+  items: EnderecoDTO[];
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams, 
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
     public storage: StorageService,
     public clienteService: ClienteService) {
   }
@@ -25,8 +27,7 @@ export class ProfilePage {
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
-          this.cliente = response as ClienteDTO;
-          this.cliente.imageUrl = './../../assets/imgs/icon_avatar.png';
+          this.items = response['enderecos'];
         },
         error => {
           if (error.status == 403) {
@@ -37,4 +38,5 @@ export class ProfilePage {
       this.navCtrl.setRoot('HomePage');
     }
   }
+
 }
