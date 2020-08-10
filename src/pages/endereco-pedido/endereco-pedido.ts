@@ -54,9 +54,9 @@ export class EnderecoPedidoPage {
     }
   }
 
-  selecionaPagamento(endereco: EnderecoDTO) {
+  selecionarPagamento(endereco: EnderecoDTO) {
     this.pedido.endereco = {id: endereco.id};
-    console.log(this.pedido);
+    this.navCtrl.push('PagamentoPedidoPage', {pedido: this.pedido});
   }
 
 }
