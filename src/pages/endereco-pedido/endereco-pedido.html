@@ -9,7 +9,7 @@
     <ion-list-header>
       Selecione o Endereço
     </ion-list-header>
-    <button ion-item *ngFor="let item of items">
+    <button ion-item *ngFor="let item of items" (click)="selecionaPagamento(item)">
       <h2><strong>{{item.logradouro}}, {{item.numero}}</strong></h2>
       <p><strong>Bairro</strong>: {{item.bairro}} <strong>CEP</strong>: {{item.cep}}</p>
       <p><strong>Complemento</strong>: {{item.complemento}}</p>
