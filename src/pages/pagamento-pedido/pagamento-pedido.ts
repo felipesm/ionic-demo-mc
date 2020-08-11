@@ -35,7 +35,7 @@ export class PagamentoPedidoPage {
 
   finalizarPedido() {
     this.pedido.pagamento = this.formGroup.value;
-    console.log(this.pedido);
+    this.navCtrl.setRoot('ConfirmacaoPedidoPage', {pedido: this.pedido});  
   }
 
 }
