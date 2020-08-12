@@ -1,3 +1,4 @@
+import { PedidoService } from './../../services/domain/pedido.service';
 import { ClienteService } from './../../services/domain/cliente.service';
 import { EnderecoDTO } from './../../models/enderecoDTO';
 import { ClienteDTO } from './../../models/clienteDTO';
@@ -23,7 +24,8 @@ export class ConfirmacaoPedidoPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public clienteService: ClienteService,
-    public carrinhoService: CarrinhoService) {
+    public carrinhoService: CarrinhoService,
+    public pedidoService: PedidoService) {
 
     this.pedido = this.navParams.get('pedido');
   }
@@ -48,6 +50,23 @@ export class ConfirmacaoPedidoPage {
 
   calcularTotal() {
     return this.carrinhoService.retornarTotal();
+  }
+
+  checkout() {
+    this.pedidoService.gravarPedido(this.pedido)
+      .subscribe(response => {
+        this.carrinhoService.criarOuLimparCarrinho();
+        console.log(response.headers.get('location'));
+      },
+      error => {
+        if (error.status == 403) {
+          this.navCtrl.setRoot('HomePage');
+        }
+      });
+  }
+
+  voltar() {
+    this.navCtrl.setRoot('CarrinhoPage');
   }
 
 }
