@@ -20,6 +20,10 @@ export class ProdutosPage {
   }
 
   ionViewDidLoad() {
+    this.carregarDados();
+  }
+
+  carregarDados() {
     let idCategoria = this.navParams.get('idCategoria');
 
     let loader = this.presentLoading();
@@ -41,6 +45,14 @@ export class ProdutosPage {
 
     loader.present();
     return loader;
+  }
+
+  doRefresh(event) {
+    this.carregarDados();
+
+    setTimeout(() => {
+      event.complete();
+    }, 1000);
   }
 
   mostrarDetalhesProduto(idProduto : string) {
