@@ -13,8 +13,8 @@ export class ProdutoService {
         return this.http.get<ProdutoDTO>(`${API_CONFIG.baseUrl}/produtos/${idProduto}`);
     }
 
-    listarPorCategoria(idCategoria: string) {
-        return this.http.get(`${API_CONFIG.baseUrl}/produtos?categorias=${idCategoria}`);
+    listarPorCategoria(idCategoria: string, pagina: number = 0, quantidade: number = 24) {
+        return this.http.get(`${API_CONFIG.baseUrl}/produtos?categorias=${idCategoria}&pagina=${pagina}&quantidade=${quantidade}`);
     }
 
 }

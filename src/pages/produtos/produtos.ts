@@ -10,7 +10,8 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 })
 export class ProdutosPage {
 
-  items : ProdutoDTO[];
+  items : ProdutoDTO[] = [];
+  pagina : number = 0;
 
   constructor(
     public navCtrl: NavController, 
@@ -27,9 +28,9 @@ export class ProdutosPage {
     let idCategoria = this.navParams.get('idCategoria');
 
     let loader = this.presentLoading();
-    this.produtoService.listarPorCategoria(idCategoria)
+    this.produtoService.listarPorCategoria(idCategoria, this.pagina, 10)
       .subscribe(response => {
-        this.items = response['content'];
+        this.items = this.items.concat(response['content']);
         loader.dismiss();
       },
       error => {
@@ -48,10 +49,21 @@ export class ProdutosPage {
   }
 
   doRefresh(event) {
+    this.pagina = 0;
+    this.items = [];
     this.carregarDados();
 
     setTimeout(() => {
       event.complete();
+    }, 1000);
+  }
+
+  doInfinite(infiniteScroll) {
+
+    this.pagina++;
+    this.carregarDados();
+    setTimeout(() => {
+      infiniteScroll.complete();
     }, 1000);
   }
 
