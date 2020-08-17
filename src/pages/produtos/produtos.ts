@@ -1,7 +1,7 @@
 import { ProdutoService } from './../../services/domain/produto.service';
 import { ProdutoDTO } from './../../models/produtoDTO';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -15,18 +15,32 @@ export class ProdutosPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
+    public loadingController: LoadingController,
     public produtoService: ProdutoService) {
   }
 
   ionViewDidLoad() {
     let idCategoria = this.navParams.get('idCategoria');
 
+    let loader = this.presentLoading();
     this.produtoService.listarPorCategoria(idCategoria)
       .subscribe(response => {
         this.items = response['content'];
+        loader.dismiss();
       },
-      error => {}
+      error => {
+        loader.dismiss();
+      }
     );
+  }
+
+  presentLoading() {
+    let loader = this.loadingController.create({
+      content: 'Aguarde...'
+    });
+
+    loader.present();
+    return loader;
   }
 
   mostrarDetalhesProduto(idProduto : string) {
